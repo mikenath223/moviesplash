@@ -6,7 +6,7 @@ import Colors from 'ms/common/constants/colors';
 import TextSizes from 'ms/common/constants/textSizes';
 import { getDatasets } from 'ms/common/utils/request';
 import { movieGenreUrl, tvGenreUrl, moreDetailsUrl } from 'ms/common/constants';
-import withResultRenderer from '../../common/components/withResultRenderer';
+import withResultRenderer from 'ms/common/components/withResultRenderer';
 
 const Genres = () => {
   const [result, setResult] = useState([]);
@@ -43,8 +43,8 @@ const Genres = () => {
   }
 
   const handleLoadMedia = async (id, title) => {
-    const url = moreDetailsUrl(id);
-    setLoadMedia([true, url])
+    const url = moreDetailsUrl(id, title);
+    setLoadMedia([true, url, title])
   }
 
   if (errorMessage) {
@@ -55,10 +55,10 @@ const Genres = () => {
     )
   }
 
-  if (loadMedia[0]) {
-    const MediaGenre = withResultRenderer(MediaList, loadMedia[1]);
-    console.log(loadMedia[1]);
-    return <MediaGenre />
+  const [isLoadGenre, url, title] = loadMedia;
+  if (isLoadGenre) {
+    const MediaGenre = withResultRenderer(MediaList, url, title);
+    return <MediaGenre altMediaType={title} />
   }
 
   const _renderGenres = ({ item: { name, id }, section: { title } }) => (

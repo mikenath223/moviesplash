@@ -10,20 +10,20 @@ const Home = ({ navigation }) => {
       <NavSection>
         <NavItem
           activeOpacity={0.6}
-          underlayColor={Colors.Cream}>
-          <Text>Home</Text>
-        </NavItem>
-        <NavItem
-          activeOpacity={0.6}
-          underlayColor={Colors.Silver}
+          underlayColor={Colors.Cream}
           onPress={() => handleNavigation('Trending Movies/Series')}>
           <Text>Trends</Text>
         </NavItem>
         <NavItem
           activeOpacity={0.6}
-          underlayColor={Colors.Silver}
-          onPress={() => handleNavigation('Categories')}>
+          onPress={() => handleNavigation('Categories')}
+          underlayColor={Colors.Silver}>
           <Text>Categories</Text>
+        </NavItem>
+        <NavItem
+          activeOpacity={0.6}
+          underlayColor={Colors.Silver}>
+          <Text>Search</Text>
         </NavItem>
       </NavSection>
       <LogoText>MovieSplash</LogoText>
