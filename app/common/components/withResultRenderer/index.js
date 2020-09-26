@@ -3,74 +3,120 @@ import { Modal, Button } from 'react-native';
 import ErrorHandler from 'ms/common/components/ErrorHandler';
 import LoadingAnimation from 'ms/common/components/LoadingAnimation';
 import { getDatasets } from 'ms/common/utils/request';
-import { moreDetailsUrl } from 'ms/common/constants';
-import MoreDetails from 'ms/common/components/moreDetails';
+import { moreDetailsUrl, newPageUrl } from 'ms/common/constants';
+import MediaInfo from 'ms/common/components/mediaInfo';
 
 const withResultRenderer = (WrappedComponent, requestUrl) => {
-  return function HOC(props) {
-    const [result, setResult] = useState([]);
+  return function HOC({ altMediaType }) {
+    const [result, setResult] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [modalErrMessage, setModalErrMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [itemDetails, setItemDetails] = useState({});
-    const [isLoadingDetails, setIsLoadingDetails] = useState(false);
+    const [isLoadingModal, setIsLoadingModal] = useState(false);
 
     useEffect(() => {
-      fetchResult();
+      fetchResult(requestUrl);
     }, [])
 
     const setLoadingState = isComponentLoading =>
-      setIsLoading(isComponentLoading)
+      setIsLoading(isComponentLoading);
 
-    const fetchResult = async () => {
+    const defaultErrMessage = 'Sorry we are unable to retrieve data from resource';
+
+    const fetchResult = async (requestUrl) => {
+      setLoadingState(true);
       const response = await getDatasets(requestUrl);
-      const { results, status_message } = response;
-      if (status_message) {
-        setErrorMessage(status_message);
+      const { status_message, results } = response;
+      if (status_message || !results.length) {
+        setErrorMessage(status_message || defaultErrMessage);
       } else {
-        setResult(results);
+        setResult(response);
       }
 
       return setLoadingState(false);
     }
 
-    const getMoreDetails = async (id) => {
+    const fetchNextPage = (page, total_pages) => {
+      if (page === total_pages) {
+        return;
+      }
+      const url = newPageUrl(requestUrl, page + 1);
+      fetchResult(url);
+    }
+
+    const fetchPrevPage = (page) => {
+      if (page <= 1) {
+        return;
+      }
+      const url = newPageUrl(requestUrl, page - 1);
+      fetchResult(url);
+    }
+
+    const handleOpenModal = () =>
       setShowModal(state => !state);
-      setIsLoadingDetails(state => !state);
-      const url = moreDetailsUrl(id);
+
+    const handleCloseModal = () => {
+      setShowModal(false);
+      intializeModal();
+    }
+
+    const intializeModal = () => {
+      setItemDetails({});
+      setModalErrMessage('');
+    }
+
+    const getMoreDetails = async (id, mediaType) => {
+      setIsLoadingModal(true);
+      const retrieveAlt = altMediaType ?
+        altMediaType.split(' ')[0].toLowerCase() : '';
+      handleOpenModal()
+      const url = moreDetailsUrl(id, mediaType || retrieveAlt);
       const response = await getDatasets(url);
-      setItemDetails(response);
-      setIsLoadingDetails(false);
+      const { name, title, status_message } = response;
+      if (status_message || (!name && !title)) {
+        setModalErrMessage(status_message || defaultErrMessage)
+      } else {
+        setItemDetails({ ...response, mediaType: mediaType || retrieveAlt });
+      }
+      return setIsLoadingModal(false);
     }
 
     if (errorMessage) {
       return (
         <ErrorHandler
           message={errorMessage}
-          retryRequest={() => fetchResult()} />
+          retryRequest={() => fetchResult(requestUrl)} />
       )
     }
 
     return (
       <>
-        {isLoading && <LoadingAnimation />}
-        <WrappedComponent {...props}
-          loadedData={result}
-          getMoreDetails={getMoreDetails} />
+        {isLoading ? <LoadingAnimation /> :
+          <WrappedComponent
+            altMediaType={altMediaType}
+            loadedData={result}
+            getMoreDetails={getMoreDetails}
+            handleGetNextPage={fetchNextPage}
+            handleGetPrevPage={fetchPrevPage} />
+        }
         <Modal
           animationType="slide"
           visible={showModal}
-          onShow={() => setIsLoadingDetails(false)}
-        // onRequestClose={() => {
-        //   Alert.alert("Modal has been closed.");
-        // }}
+          onShow={() => setIsLoadingModal(false)}
         >
-          {isLoadingDetails ? <LoadingAnimation /> :
+          {isLoadingModal ? <LoadingAnimation /> :
             (<>
-              <Button
-                title="Close"
-                onPress={() => setShowModal(false)} />
-              <MoreDetails details={itemDetails} />
+              <Button title="Close"
+                color="red"
+                onPress={handleCloseModal}
+              />
+              {!modalErrMessage ? <MediaInfo details={itemDetails} /> :
+                <ErrorHandler
+                  message={modalErrMessage}
+                  retryRequest={() => { }}
+                />}
             </>
             )}
         </Modal>

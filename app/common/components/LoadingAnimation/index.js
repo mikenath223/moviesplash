@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Animated, StyleSheet } from 'react-native';
-import Container from './LoadingAnimation.styled';
+import { View, Text, Animated, StyleSheet, Easing } from 'react-native';
+import spinner from 'moviesplash/assets/spinner.png'
 import Colors from 'ms/common/constants/colors';
 
 const LoadingAnimation = () => {
@@ -12,16 +12,16 @@ const LoadingAnimation = () => {
   })
 
   const rollingLoop = () => {
-    Animated.loop(
-      Animated.timing(
-        spinValue,
-        {
-          toValue: 1,
-          duration: 3000,
-          useNativeDriver: true
-        }
-      )
-    ).start();
+    spinValue.setValue(0);
+    Animated.timing(
+      spinValue,
+      {
+        toValue: 1,
+        duration: 3000,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }
+    ).start(() => rollingLoop());
   };
 
 
@@ -30,22 +30,25 @@ const LoadingAnimation = () => {
   }, [])
 
   return (
-    <Container>
-      <Animated.View
+    <View style={styles.container}>
+      <Animated.Image
+        source={spinner}
         style={[styles.loader, { transform: [{ rotate: spin }] }
         ]} />
-    </Container>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  },
   loader: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    borderWidth: 5,
-    borderColor: Colors.DeepSkyBlue,
-    borderBottomColor: Colors.Grey,
+    width: 100,
+    height: 100,
   }
 })
 

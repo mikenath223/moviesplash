@@ -1,40 +1,31 @@
 import React from 'react';
-import { View, Image, Text, TouchableHighlight, StyleSheet } from 'react-native'
+import { FlatList, View, Dimensions } from 'react-native';
+import Item from './components/Item';
 
-const Item = ({ item, handleGetMovieDetails }) => {
-  const { id, backdrop_path, name, title,
-    release_date, popularity } = item;
+const MediaList = ({ loadedData: { page, total_pages, results }, 
+  getMoreDetails, handleGetNextPage, handleGetPrevPage }) => {
+  const _renderItem = ({ item }) => (
+    <Item item={item}
+      handleGetDetails={getMoreDetails} />
+  )
+
+  const _keyExtractor = (item) => item.id + '';
+
+  const { height } = Dimensions.get('window');
 
   return (
-    <>
-      <TouchableHighlight
-        onPress={() => handleGetMovieDetails(id)}>
-        <View
-          style={styles.flexCol}>
-          <Image source={{ uri: 'https://image.tmdb.org/t/p/original/' + backdrop_path }} style={styles.splashImage} />
-          <View>
-            <Text>{name}</Text>
-            <Text>{title}</Text>
-            <Text>{release_date}</Text>
-            <Text>{popularity}</Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    </>
+    <View style={{ flex: 1, height }}>
+      <FlatList
+        data={results}
+        keyExtractor={_keyExtractor}
+        renderItem={_renderItem}
+        onRefresh={() => handleGetPrevPage(page)}
+        refreshing={false}
+        onEndReachedThreshold={0.1}
+        onEndReached={() => handleGetNextPage(page, total_pages)}
+      />
+    </View>
   )
 }
-// https://api.themoviedb.org/3/search/movie?query=tenet&api_key=159a4b02e517671b904d19f2ae59a663
-// https://api.themoviedb.org/3/movie/popular?api_key=###&page=2
 
-const styles = StyleSheet.create({
-  flexCol: {
-    borderWidth: 1,
-    borderColor: 'grey'
-  },
-  splashImage: {
-    width: 200,
-    height: 150,
-  }
-})
-
-export default Item;
+export default MediaList;
