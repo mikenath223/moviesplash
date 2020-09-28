@@ -22,12 +22,13 @@ const Home = ({ navigation }) => {
         </NavItem>
         <NavItem
           activeOpacity={0.6}
+          onPress={() => handleNavigation('Search')}
           underlayColor={Colors.Silver}>
           <Text>Search</Text>
         </NavItem>
       </NavSection>
       <LogoText>MovieSplash</LogoText>
-      <Text>...your binge movie partner</Text>
+      <Text orange>...your binge movie partner</Text>
     </Container>
   )
 };
