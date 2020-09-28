@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Trending from 'ms/screens/Trending';
 import Home from 'ms/screens/Home';
 import Category from 'ms/screens/Category';
+import Search from 'ms/screens/Search';
 import constants from 'ms/common/constants';
 import Colors from 'ms/common/constants/colors';
 
@@ -20,23 +21,24 @@ const App = () => {
 
   const headerOptions = {
     headerStyle: {
-      backgroundColor: Colors.Silver,
+      backgroundColor: Colors.AmberRed,
     },
     headerTitleStyle: {
       fontWeight: 'bold',
     },
     headerTitleAlign: 'center',
-    headerTintColor: Colors.AmberRed,
+    headerTintColor: Colors.Cream,
   }
 
   return (
     <Container>
-      <StatusBar barStyle="dark-content" backgroundColor={Colors.Silver} />
+      <StatusBar barStyle="light-content" backgroundColor={Colors.AmberRed} />
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={headerOptions}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Categories" component={Category} />
+        <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Trending Movies/Series" component={Trending} />
       </Stack.Navigator>
     </Container>
