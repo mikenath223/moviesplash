@@ -44,3 +44,5 @@ export const moreDetailsUrl = (mediaId, mediaType) => {
 
 export const tvGenreUrl = `${BASE_URL}genre/movie/list?api_key=${API_KEY}&language=en-US`;
 export const movieGenreUrl = `${BASE_URL}genre/tv/list?api_key=${API_KEY}&language=en-US`;
+
+export const searchUrl = (query, mediaType) => `${BASE_URL}search/${mediaType === "Movies" ? "movie" : "tv"}?query=${query}&api_key=${API_KEY}`;

@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
     borderColor: Colors.AmberRed,
     borderRadius: 15,
     margin: 30,
-    height: 398
+    height: 349
   },
   splashImage: {
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     width: '100%',
-    height: '100%',
-    resizeMode: cover
+    height: '70%',
+    resizeMode: 'cover'
   },
   text: {
     padding: 4,

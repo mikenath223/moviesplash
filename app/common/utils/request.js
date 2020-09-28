@@ -8,10 +8,7 @@ export const getDatasets = async (url) => {
         });
     })
   } catch (error) {
-    console.log('Unable to fetch data',
-      JSON.stringify(error));
       result = {status_message: 'Sorry we are unable to retrieve data from resource'}
-      throw new Error(error);
   } finally {
     return result
   }

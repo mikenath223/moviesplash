@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   image: {
-    width: 320,
-    height: 320,
-    resizeMode: cover
+    width: '100%',
+    height: 350,
+    resizeMode: 'cover'
   },
   overlay: {
     backgroundColor: 'silver',

@@ -29,6 +29,7 @@ const withResultRenderer = (WrappedComponent, requestUrl) => {
       setLoadingState(true);
       const response = await getDatasets(requestUrl);
       const { status_message, results } = response;
+      console.log((response));
       if (status_message || !results.length) {
         setErrorMessage(status_message || defaultErrMessage);
       } else {
