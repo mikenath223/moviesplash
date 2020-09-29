@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import Colors from 'ms/common/constants/colors';
 
-export const Container = styled.View`
+const Container = styled.View`
   flex: 1;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +25,7 @@ export const NavItem = styled.TouchableHighlight`
 `;
 
 export const Text = styled.Text`
-  color: ${(props) => props.orange ? Colors.Cream : "#000"};
+  color: ${props => (props.orange ? Colors.Cream : '#000')};
   text-align: center;
   font-size: 17px;
   text-transform: uppercase;
@@ -39,3 +39,5 @@ export const LogoText = styled.Text`
   margin-top: 35px;
   color: ${Colors.Cream}
 `;
+
+export default Container;

@@ -1,5 +1,7 @@
 const createMockResponseDelayed = (response, delayMs) => {
-  const {status, statusText, ok, body} = response;
+  const {
+    status, statusText, ok, body,
+  } = response;
 
   return new Promise(resolve => {
     setTimeout(() => {
@@ -9,9 +11,9 @@ const createMockResponseDelayed = (response, delayMs) => {
           statusText,
           ok,
           json: () => Promise.resolve(body),
-          text: () => Promise.resolve(JSON.stringify(body))
-        }
-      )
+          text: () => Promise.resolve(JSON.stringify(body)),
+        },
+      );
     }, delayMs);
-  })
-}
+  });
+};

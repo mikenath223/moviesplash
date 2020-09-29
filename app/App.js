@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { Container } from 'moviesplash/styles/container.styled';
+import Container from 'moviesplash/styles/container.styled';
 import { createStackNavigator } from '@react-navigation/stack';
 import Trending from 'ms/screens/Trending';
 import Home from 'ms/screens/Home';
@@ -28,14 +28,15 @@ const App = () => {
     },
     headerTitleAlign: 'center',
     headerTintColor: Colors.Cream,
-  }
+  };
 
   return (
     <Container>
       <StatusBar barStyle="light-content" backgroundColor={Colors.AmberRed} />
       <Stack.Navigator
         initialRouteName="Home"
-        screenOptions={headerOptions}>
+        screenOptions={headerOptions}
+      >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Categories" component={Category} />
         <Stack.Screen name="Search" component={Search} />

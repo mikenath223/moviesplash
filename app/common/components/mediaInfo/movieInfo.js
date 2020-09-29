@@ -2,13 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from 'ms/common/constants/colors';
 
-const MovieInfo = ({ runtime }) => (
-  <View>
-    <Text style={styles.label}>Runtime</Text>
-    <Text style={styles.item}>{runtime} mins</Text>
-  </View>
-)
-
 const styles = StyleSheet.create({
   item: {
     margin: 4,
@@ -21,8 +14,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: Colors.AmberRed,
     color: '#fff',
-    fontSize: 17
-  }
-})
+    fontSize: 17,
+  },
+});
+
+const MovieInfo = ({ runtime }) => (
+  <View>
+    <Text style={styles.label}>Runtime</Text>
+    <Text style={styles.item}>
+      {runtime}
+      {' '}
+      mins
+    </Text>
+  </View>
+);
 
 export default MovieInfo;
