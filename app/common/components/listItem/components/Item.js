@@ -1,6 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native'
+import FastImage from 'react-native-fast-image'
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import { posterBaseUrl } from 'ms/common/constants/';
+import noImage from 'moviesplash/assets/noimage.jpg';
 import Colors from 'ms/common/constants/colors';
 import textSizes from 'ms/common/constants/textSizes';
 
@@ -10,16 +12,28 @@ const Item = ({ item, handleGetDetails, altMediaType }) => {
   const reversedDate = (date) => date ?
     date.split('-').reverse().join('-') : '';
 
+  let imageLoc = {
+    uri: posterBaseUrl + (backdrop_path || poster_path),
+    priority: FastImage.priority.high
+  };
+  if (!backdrop_path || !poster_path) {
+    imageLoc = noImage
+  }
+
   return (
     <TouchableOpacity
       onPress={() => {
         handleGetDetails(id, media_type || altMediaType)
       }}>
       <View style={styles.container}>
-        <Image
-          source={{ uri: posterBaseUrl + (backdrop_path || poster_path) }}
+        <FastImage
+          source={imageLoc}
           style={styles.splashImage} />
-        <Text style={[styles.text, styles.title]}>{name || title}</Text>
+        <Text ellipsizeMode="tail"
+        numberOfLines={1}
+        style={[styles.text, styles.title]}>
+        {(name || title)}
+        </Text>
         <Text style={[styles.text, styles.date]}>{reversedDate(release_date)}</Text>
         <Text style={[styles.text, styles.votes]}>{popularity}</Text>
       </View>
@@ -40,7 +54,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     width: '100%',
-    height: '70%',
+    height: '72%',
     resizeMode: 'cover'
   },
   text: {
@@ -48,7 +62,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   title: {
-    fontSize: textSizes.Large,
+    fontSize: textSizes.Medium,
     backgroundColor: Colors.AmberRed,
     color: Colors.Cream
   },

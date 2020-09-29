@@ -25,7 +25,7 @@ export const NavItem = styled.TouchableHighlight`
 `;
 
 export const Text = styled.Text`
-  color: ${(props) => props.orange ? Colors.SunsetOrange : "#000"};
+  color: ${(props) => props.orange ? Colors.Cream : "#000"};
   text-align: center;
   font-size: 17px;
   text-transform: uppercase;

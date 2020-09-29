@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Button } from 'react-native';
 import ErrorHandler from 'ms/common/components/ErrorHandler';
 import LoadingAnimation from 'ms/common/components/LoadingAnimation';
@@ -16,8 +16,14 @@ const withResultRenderer = (WrappedComponent, requestUrl) => {
     const [itemDetails, setItemDetails] = useState({});
     const [isLoadingModal, setIsLoadingModal] = useState(false);
 
+    let isRendered = useRef(false);
+
     useEffect(() => {
       fetchResult(requestUrl);
+
+      return () => {
+        isRendered = false;
+      }
     }, [])
 
     const setLoadingState = isComponentLoading =>
@@ -29,7 +35,9 @@ const withResultRenderer = (WrappedComponent, requestUrl) => {
       setLoadingState(true);
       const response = await getDatasets(requestUrl);
       const { status_message, results } = response;
-      console.log((response));
+      if (!isRendered) {
+        return;
+      }
       if (status_message || !results.length) {
         setErrorMessage(status_message || defaultErrMessage);
       } else {
@@ -58,9 +66,11 @@ const withResultRenderer = (WrappedComponent, requestUrl) => {
     const handleOpenModal = () =>
       setShowModal(state => !state);
 
+    let isModalRendered = useRef(false);
     const handleCloseModal = () => {
       setShowModal(false);
       intializeModal();
+      isModalRendered = false;
     }
 
     const intializeModal = () => {
@@ -76,6 +86,9 @@ const withResultRenderer = (WrappedComponent, requestUrl) => {
       const url = moreDetailsUrl(id, mediaType || retrieveAlt);
       const response = await getDatasets(url);
       const { name, title, status_message } = response;
+      if(!isModalRendered) {
+        return;
+      }
       if (status_message || (!name && !title)) {
         setModalErrMessage(status_message || defaultErrMessage)
       } else {

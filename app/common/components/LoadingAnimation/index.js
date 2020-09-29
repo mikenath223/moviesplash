@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
-import { View, Text, Animated, StyleSheet, Easing } from 'react-native';
+import { View, Animated, StyleSheet, Easing } from 'react-native';
 import spinner from 'moviesplash/assets/spinner.png'
-import Colors from 'ms/common/constants/colors';
 
 const LoadingAnimation = () => {
   const spinValue = new Animated.Value(0);
