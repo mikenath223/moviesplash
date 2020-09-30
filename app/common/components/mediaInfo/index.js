@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ScrollView, View, Text, Image, StyleSheet,
 } from 'react-native';
@@ -91,6 +92,10 @@ const MediaInfo = ({ details }) => {
       </ScrollView>
     </View>
   );
+};
+
+MediaInfo.propTypes = {
+  details: PropTypes.oneOfType([PropTypes.string]).isRequired,
 };
 
 export default MediaInfo;

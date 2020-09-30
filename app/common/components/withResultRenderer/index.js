@@ -6,7 +6,8 @@ import getDatasets from 'ms/common/utils/request';
 import { moreDetailsUrl, newPageUrl } from 'ms/common/constants';
 import MediaInfo from 'ms/common/components/mediaInfo';
 
-const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altMediaType }) {
+/* eslint-disable react/prop-types */
+const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altMediaType = '' }) {
   const [result, setResult] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);

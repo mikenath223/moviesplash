@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from 'ms/common/constants/colors';
 
@@ -70,6 +71,13 @@ const TvInfo = ({
       ))}
     </View>
   );
+};
+
+TvInfo.propTypes = {
+  episode_run_time: PropTypes.string.isRequired,
+  first_air_date: PropTypes.string.isRequired,
+  last_air_date: PropTypes.string.isRequired,
+  seasons: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TvInfo;

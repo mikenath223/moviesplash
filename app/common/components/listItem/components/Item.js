@@ -1,5 +1,6 @@
 import React from 'react';
 import FastImage from 'react-native-fast-image';
+import PropTypes from 'prop-types';
 import {
   TouchableOpacity, View, Text, StyleSheet,
 } from 'react-native';
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
 });
 
 /* eslint-disable camelcase */
-const Item = ({ item, handleGetDetails, altMediaType }) => {
+const Item = ({ item, handleGetDetails, altMediaType = '' }) => {
   const {
     id, backdrop_path, poster_path, name, title,
     release_date, popularity, media_type,
@@ -83,6 +84,16 @@ const Item = ({ item, handleGetDetails, altMediaType }) => {
       </View>
     </TouchableOpacity>
   );
+};
+
+Item.defaultProps = {
+  altMediaType: '',
+};
+
+Item.propTypes = {
+  item: PropTypes.oneOfType([PropTypes.string]).isRequired,
+  handleGetDetails: PropTypes.func.isRequired,
+  altMediaType: PropTypes.string,
 };
 
 export default Item;

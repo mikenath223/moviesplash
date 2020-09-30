@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Dropdown as DropdownItem } from 'react-native-material-dropdown';
 
 const data = [{
@@ -20,5 +21,9 @@ const Dropdown = ({ handleChange }) => (
     onChangeText={handleChange}
   />
 );
+
+Dropdown.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+};
 
 export default Dropdown;

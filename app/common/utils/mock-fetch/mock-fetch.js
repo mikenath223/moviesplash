@@ -17,3 +17,5 @@ const createMockResponseDelayed = (response, delayMs) => {
     }, delayMs);
   });
 };
+
+export default createMockResponseDelayed;

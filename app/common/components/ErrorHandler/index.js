@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   View, Text, Button, StyleSheet,
 } from 'react-native';
@@ -21,5 +22,10 @@ const ErrorHandler = ({ message, retryRequest }) => (
     />
   </View>
 );
+
+ErrorHandler.propTypes = {
+  message: PropTypes.string.isRequired,
+  retryRequest: PropTypes.func.isRequired,
+};
 
 export default ErrorHandler;

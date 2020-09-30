@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FlatList, View, Dimensions } from 'react-native';
 import Item from './components/Item';
 
@@ -31,6 +32,13 @@ const MediaList = ({
       />
     </View>
   );
+};
+
+MediaList.propTypes = {
+  loadedData: PropTypes.oneOfType([PropTypes.string]).isRequired,
+  getMoreDetails: PropTypes.func.isRequired,
+  handleGetNextPage: PropTypes.func.isRequired,
+  handleGetPrevPage: PropTypes.func.isRequired,
 };
 
 export default MediaList;

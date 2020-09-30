@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from 'ms/common/constants/colors';
 
@@ -28,5 +29,9 @@ const MovieInfo = ({ runtime }) => (
     </Text>
   </View>
 );
+
+MovieInfo.propTypes = {
+  runtime: PropTypes.string.isRequired,
+};
 
 export default MovieInfo;

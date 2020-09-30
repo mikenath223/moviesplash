@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Colors from 'ms/common/constants/colors';
 import Container, {
   NavSection, NavItem, Text, LogoText,
@@ -36,6 +37,12 @@ const Home = ({ navigation }) => {
       <Text orange>...your binge movie partner</Text>
     </Container>
   );
+};
+
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Home;
