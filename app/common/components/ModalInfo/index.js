@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import Colors from 'ms/common/constants/colors';
 import { posterBaseUrl } from 'ms/common/constants';
+import noimage from 'moviesplash/assets/noimage.png';
 import MovieInfo from './movieInfo';
 import TvInfo from './tvSeriesInfo';
 
@@ -12,7 +13,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    margin: 20,
+  },
+  scroll: {
+    padding: 10,
   },
   title: {
     marginVertical: 20,
@@ -32,7 +35,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 350,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   overlay: {
     backgroundColor: 'silver',
@@ -49,7 +52,7 @@ const styles = StyleSheet.create({
 
 /* eslint-disable camelcase */
 
-const MediaInfo = ({ details }) => {
+const ModalInfo = ({ details }) => {
   const {
     overview, runtime, status, poster_path,
     title, name, vote_count, production_companies = [],
@@ -58,14 +61,22 @@ const MediaInfo = ({ details }) => {
   } = details;
 
   if (status_message) {
-    return <Text style={[styles.error, styles.title]}>{status_message}</Text>;
+    return (
+      <View style={styles.container}>
+        <Text style={[styles.error, styles.title]}>{status_message}</Text>
+      </View>
+    );
   }
+
+  const imageLoc = poster_path ? {
+    uri: posterBaseUrl + poster_path,
+  } : noimage;
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title || name}</Text>
-      <ScrollView>
-        <Image source={{ uri: posterBaseUrl + poster_path }} style={styles.image} />
+      <ScrollView style={styles.scroll}>
+        <Image source={imageLoc} style={styles.image} />
         <Text style={styles.label}>Overview</Text>
         <Text style={styles.item}>{overview}</Text>
         <View style={styles.overlay}>
@@ -94,8 +105,8 @@ const MediaInfo = ({ details }) => {
   );
 };
 
-MediaInfo.propTypes = {
+ModalInfo.propTypes = {
   details: PropTypes.oneOfType([PropTypes.string]).isRequired,
 };
 
-export default MediaInfo;
+export default ModalInfo;

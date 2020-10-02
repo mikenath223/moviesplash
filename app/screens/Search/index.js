@@ -6,7 +6,7 @@ import {
 import DropDown from 'ms/screens/Search/components/Dropdown';
 import SearchInput from 'ms/screens/Search/components/SearchInput';
 import withResultRenderer from 'ms/common/components/withResultRenderer';
-import MediaList from 'ms/common/components/listItem';
+import MediaList from 'ms/common/components/ListItem';
 import { searchUrl } from 'ms/common/constants';
 import textSizes from 'ms/common/constants/textSizes';
 

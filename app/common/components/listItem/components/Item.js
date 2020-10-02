@@ -5,7 +5,7 @@ import {
   TouchableOpacity, View, Text, StyleSheet,
 } from 'react-native';
 import { posterBaseUrl } from 'ms/common/constants/';
-import noImage from 'moviesplash/assets/noimage.jpg';
+import noimage from 'moviesplash/assets/noimage.png';
 import Colors from 'ms/common/constants/colors';
 import textSizes from 'ms/common/constants/textSizes';
 
@@ -58,7 +58,7 @@ const Item = ({ item, handleGetDetails, altMediaType = '' }) => {
     priority: FastImage.priority.high,
   };
   if (!backdrop_path || !poster_path) {
-    imageLoc = noImage;
+    imageLoc = noimage;
   }
 
   return (
@@ -91,7 +91,7 @@ Item.defaultProps = {
 };
 
 Item.propTypes = {
-  item: PropTypes.oneOfType([PropTypes.string]).isRequired,
+  item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   handleGetDetails: PropTypes.func.isRequired,
   altMediaType: PropTypes.string,
 };

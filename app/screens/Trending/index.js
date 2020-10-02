@@ -1,4 +1,4 @@
-import MediaList from 'ms/common/components/listItem';
+import MediaList from 'ms/common/components/ListItem';
 import withResultRenderer from 'ms/common/components/withResultRenderer';
 import { trendingUrl } from 'ms/common/constants/';
 

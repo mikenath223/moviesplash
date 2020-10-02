@@ -3,7 +3,7 @@ import {
   SectionList, SafeAreaView,
   Text, StyleSheet, TouchableWithoutFeedback,
 } from 'react-native';
-import MediaList from 'ms/common/components/listItem';
+import MediaList from 'ms/common/components/ListItem';
 import LoadingAnimation from 'ms/common/components/LoadingAnimation';
 import ErrorHandler from 'ms/common/components/ErrorHandler';
 import Colors from 'ms/common/constants/colors';

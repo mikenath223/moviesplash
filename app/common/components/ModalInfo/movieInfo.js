@@ -31,7 +31,7 @@ const MovieInfo = ({ runtime }) => (
 );
 
 MovieInfo.propTypes = {
-  runtime: PropTypes.string.isRequired,
+  runtime: PropTypes.number.isRequired,
 };
 
 export default MovieInfo;

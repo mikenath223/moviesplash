@@ -4,14 +4,13 @@ import ErrorHandler from 'ms/common/components/ErrorHandler';
 import LoadingAnimation from 'ms/common/components/LoadingAnimation';
 import getDatasets from 'ms/common/utils/request';
 import { moreDetailsUrl, newPageUrl } from 'ms/common/constants';
-import MediaInfo from 'ms/common/components/mediaInfo';
+import ModalInfo from 'ms/common/components/ModalInfo';
 
 /* eslint-disable react/prop-types */
 const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altMediaType = '' }) {
   const [result, setResult] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [modalErrMessage, setModalErrMessage] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [itemDetails, setItemDetails] = useState({});
   const [isLoadingModal, setIsLoadingModal] = useState(false);
@@ -67,7 +66,6 @@ const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altM
 
   const intializeModal = () => {
     setItemDetails({});
-    setModalErrMessage('');
   };
 
   let isModalRendered = useRef(false);
@@ -85,15 +83,10 @@ const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altM
     handleOpenModal();
     const url = moreDetailsUrl(id, mediaType || retrieveAlt);
     const response = await getDatasets(url);
-    const { name, title, status_message } = response;
     if (!isModalRendered) {
       return;
     }
-    if (status_message || (!name && !title)) {
-      setModalErrMessage(status_message || defaultErrMessage);
-    } else {
-      setItemDetails({ ...response, mediaType: mediaType || retrieveAlt });
-    }
+    setItemDetails({ ...response, mediaType: mediaType || retrieveAlt });
     setIsLoadingModal(false);
   };
   /* eslint-enable camelcase */
@@ -133,13 +126,7 @@ const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altM
                 color="red"
                 onPress={handleCloseModal}
               />
-              {!modalErrMessage ? <MediaInfo details={itemDetails} />
-                : (
-                  <ErrorHandler
-                    message={modalErrMessage}
-                    retryRequest={() => { }}
-                  />
-                )}
+              <ModalInfo details={itemDetails} />
             </>
           )}
       </Modal>

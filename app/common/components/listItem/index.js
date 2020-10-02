@@ -35,7 +35,11 @@ const MediaList = ({
 };
 
 MediaList.propTypes = {
-  loadedData: PropTypes.oneOfType([PropTypes.string]).isRequired,
+  loadedData: PropTypes.shape({
+    page: PropTypes.number.isRequired,
+    total_pages: PropTypes.number.isRequired,
+    results: PropTypes.arrayOf([PropTypes.string]).isRequired,
+  }).isRequired,
   getMoreDetails: PropTypes.func.isRequired,
   handleGetNextPage: PropTypes.func.isRequired,
   handleGetPrevPage: PropTypes.func.isRequired,

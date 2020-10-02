@@ -77,7 +77,7 @@ TvInfo.propTypes = {
   episode_run_time: PropTypes.string.isRequired,
   first_air_date: PropTypes.string.isRequired,
   last_air_date: PropTypes.string.isRequired,
-  seasons: PropTypes.arrayOf(PropTypes.string).isRequired,
+  seasons: PropTypes.arrayOf(PropTypes.object, PropTypes.string).isRequired,
 };
 
 export default TvInfo;
