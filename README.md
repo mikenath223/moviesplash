@@ -16,8 +16,8 @@ An android app built using the React-Native framework to showcase movies grouped
     <td><img src="./assets/docs/screen02.png" width="400"></td>
   <tr>
   <tr>
-    <td><img src="./assets/docs/screen01.png" width="400"></td>
-    <td><img src="./assets/docs/screen01.png" width="400"></td>
+    <td><img src="./assets/docs/screen03.png" width="400"></td>
+    <td><img src="./assets/docs/screen04.png" width="400"></td>
   </tr>
 </table>
 
