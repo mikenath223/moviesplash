@@ -91,7 +91,16 @@ Item.defaultProps = {
 };
 
 Item.propTypes = {
-  item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.number,
+    backdrop_path: PropTypes.string,
+    poster_path: PropTypes.string,
+    name: PropTypes.string,
+    title: PropTypes.string,
+    release_date: PropTypes.string,
+    popularity: PropTypes.number,
+    media_type: PropTypes.string,
+  }).isRequired,
   handleGetDetails: PropTypes.func.isRequired,
   altMediaType: PropTypes.string,
 };

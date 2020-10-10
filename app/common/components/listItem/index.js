@@ -4,7 +4,7 @@ import { FlatList, View, Dimensions } from 'react-native';
 import Item from './components/Item';
 
 /* eslint-disable camelcase */
-const MediaList = ({
+const ListItem = ({
   loadedData: { page, total_pages, results },
   getMoreDetails, handleGetNextPage, handleGetPrevPage,
 }) => {
@@ -34,15 +34,15 @@ const MediaList = ({
   );
 };
 
-MediaList.propTypes = {
+ListItem.propTypes = {
   loadedData: PropTypes.shape({
-    page: PropTypes.number.isRequired,
-    total_pages: PropTypes.number.isRequired,
-    results: PropTypes.arrayOf([PropTypes.string]).isRequired,
+    page: PropTypes.number,
+    total_pages: PropTypes.number,
+    results: PropTypes.arrayOf([PropTypes.number, PropTypes.string]),
   }).isRequired,
   getMoreDetails: PropTypes.func.isRequired,
   handleGetNextPage: PropTypes.func.isRequired,
   handleGetPrevPage: PropTypes.func.isRequired,
 };
 
-export default MediaList;
+export default ListItem;

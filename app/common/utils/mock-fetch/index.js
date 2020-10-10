@@ -1,3 +1,4 @@
-import mockFetch from './mock-fetch';
+import mockFetchPromise from './mockFetch';
 
-export default mockFetch;
+export const mockUrl = 'http://example.com';
+export default mockFetchPromise;

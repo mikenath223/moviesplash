@@ -6,7 +6,7 @@ import {
 import DropDown from 'ms/screens/Search/components/Dropdown';
 import SearchInput from 'ms/screens/Search/components/SearchInput';
 import withResultRenderer from 'ms/common/components/withResultRenderer';
-import MediaList from 'ms/common/components/ListItem';
+import ListItem from 'ms/common/components/ListItem';
 import { searchUrl } from 'ms/common/constants';
 import textSizes from 'ms/common/constants/textSizes';
 
@@ -47,7 +47,7 @@ const Search = () => {
   if (showResults) {
     const url = searchUrl(inputText, selectedValue);
     const title = selectedValue === 'Movies' ? 'movie' : 'tv';
-    const SearchResult = withResultRenderer(MediaList, url);
+    const SearchResult = withResultRenderer(ListItem, url);
     return <SearchResult altMediaType={title} />;
   }
 

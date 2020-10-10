@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 /* eslint-disable camelcase */
 const TvInfo = ({
   episode_run_time, first_air_date,
-  last_air_date, seasons = [],
+  last_air_date, seasons,
 }) => {
   const reversedAirDate = date => (date
     ? date.split('-').reverse().join('-') : '');
@@ -73,11 +73,15 @@ const TvInfo = ({
   );
 };
 
+TvInfo.defaultProps = {
+  seasons: [],
+};
+
 TvInfo.propTypes = {
   episode_run_time: PropTypes.string.isRequired,
   first_air_date: PropTypes.string.isRequired,
   last_air_date: PropTypes.string.isRequired,
-  seasons: PropTypes.arrayOf(PropTypes.object, PropTypes.string).isRequired,
+  seasons: PropTypes.arrayOf(PropTypes.object, PropTypes.string),
 };
 
 export default TvInfo;

@@ -13,7 +13,7 @@ const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altM
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [itemDetails, setItemDetails] = useState({});
-  const [isLoadingModal, setIsLoadingModal] = useState(false);
+  const [isLoadingModal, setIsLoadingModal] = useState(true);
 
   let isRendered = useRef(false);
 
@@ -34,7 +34,6 @@ const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altM
     } else {
       setResult(response);
     }
-
     setLoadingState(false);
   };
 
@@ -76,7 +75,6 @@ const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altM
   };
 
   const getMoreDetails = async (id, mediaType) => {
-    setIsLoadingModal(true);
     /* eslint-disable react/prop-types */
     const retrieveAlt = altMediaType
       ? altMediaType.split(' ')[0].toLowerCase() : '';
@@ -87,9 +85,7 @@ const withResultRenderer = (WrappedComponent, requestUrl) => function HOC({ altM
       return;
     }
     setItemDetails({ ...response, mediaType: mediaType || retrieveAlt });
-    setIsLoadingModal(false);
   };
-  /* eslint-enable camelcase */
   /* eslint-enable react/prop-types */
 
   if (errorMessage) {

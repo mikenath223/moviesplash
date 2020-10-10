@@ -7,7 +7,7 @@ import Colors from 'ms/common/constants/colors';
 import { posterBaseUrl } from 'ms/common/constants';
 import noimage from 'moviesplash/assets/noimage.png';
 import MovieInfo from './movieInfo';
-import TvInfo from './tvSeriesInfo';
+import TvInfo from './tvInfo';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     padding: 10,
     fontSize: 22,
+    textAlign: 'center',
     backgroundColor: Colors.SunsetOrange,
     color: '#fff',
   },
@@ -75,7 +76,7 @@ const ModalInfo = ({ details }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title || name}</Text>
-      <ScrollView style={styles.scroll}>
+      <ScrollView contentContainerStyle={styles.scroll}>
         <Image source={imageLoc} style={styles.image} />
         <Text style={styles.label}>Overview</Text>
         <Text style={styles.item}>{overview}</Text>
